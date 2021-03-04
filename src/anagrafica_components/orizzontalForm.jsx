@@ -72,7 +72,7 @@ class OrizzontalForm extends Form {
     const array = [...this.props.filiali];
     const errorFil = this.state.errors.filiale;
     const errorNag = this.state.errors.nag;
-    const { isConfirmedVisible } = this.props;
+    const { risposta, isConfirmedVisible } = this.props;
 
     return (
       <div className="m-4 pb-3">

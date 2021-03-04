@@ -73,6 +73,7 @@ export default class ListaClienti extends Component {
       customers,
       tableClass,
       setConfirmed,
+      handleEnded
     } = this.props;
 
     return (
@@ -83,6 +84,7 @@ export default class ListaClienti extends Component {
             customer={this.state.customer}
             variazioneClienti={this.variazioneCliente}
             setConfirmed={setConfirmed}
+            handleEnded={handleEnded}
           />
         ) : (
           ""

@@ -3,11 +3,11 @@ import React, { Component } from "react";
 class TableModal extends Component {
   state = {
     isConfermato: false,
-    isErrore: false,
     isChecked: false,
-    dismiss: "",
     inv: "btn btn-primary invisible",
-    vis: "btn btn-primary border border-dark",
+    vis: "btn btn-primary btn-block",
+    footer: "modal-footer",
+    invfooter: "modal-footer invisible",
   };
 
   setConfermato = () => {
@@ -22,17 +22,9 @@ class TableModal extends Component {
     }
   };
 
-  checked = () => {
-    this.setState({ isChecked: true });
-  };
-
-  notChecked = () => {
-    this.setState({ isError: false });
-  };
-
   render() {
-    const { customer, handleChange, setConfirmed, customers } = this.props;
-    const { isConfermato, inv, vis, isErrore } = this.state;
+    const { customer, handleChange, setConfirmed } = this.props;
+    const { isConfermato, inv, vis, footer, invfooter } = this.state;
     const markAsEdited = { ...this.props.markAsEdited };
 
     return (
@@ -299,17 +291,20 @@ class TableModal extends Component {
             </tbody>
           </table>
         </div>
-        <button
-          type="button"
-          className={isConfermato ? inv : vis}
-          onClick={() => {
-            this.controlloModifica(markAsEdited)
-              ? this.setConfermato()
-              : this.setState({ isErrore: true });
-          }}
-        >
-          Conferma
-        </button>
+
+        <div className={isConfermato ? invfooter : footer}>
+          <button
+            type="button"
+            className={isConfermato ? inv : vis}
+            onClick={() => {
+              this.controlloModifica(markAsEdited)
+                ? this.setConfermato()
+                : this.setState({ isErrore: true });
+            }}
+          >
+            Conferma
+          </button>
+        </div>
       </React.Fragment>
     );
   }

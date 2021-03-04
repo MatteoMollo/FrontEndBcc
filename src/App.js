@@ -20,7 +20,10 @@ class App extends Component {
     customers: [],
     tableClass: "table table-striped invisible",
     confirmClass: "alert alert-success invisible",
-    isConfirmedVisible: false
+    isConfirmedVisible: false,
+    risposta: "",
+    filiale: "",
+    nag: ""
   };
 
   UNSAFE_componentWillMount() {
@@ -66,6 +69,11 @@ class App extends Component {
     this.setState({ isConfirmedVisible: !this.state.isConfirmedVisible });
   }
 
+  handleEnded = () => {
+    const { filiale, nag } = this.state;
+    this.getCustomers(filiale, nag);
+  }
+
   componentDidMount = async () => {
     const conf = {
       headers: {
@@ -78,6 +86,7 @@ class App extends Component {
   };
 
   getCustomers = async (filiale, nag, nome, dataNascita) => {
+    this.setState({ filiale, nag });
     const conf = {
       headers: {
         Authorization: localStorage.getItem("TOKEN"),
@@ -110,11 +119,12 @@ class App extends Component {
       },
     };
 
-    const risposta = await axios.post(
+    const {data : risposta} = await axios.post(
       config.apiVerifyAnagraficaEndpoint,
       markAsEdited,
       conf
     );
+    this.setState({ risposta });
     console.log(risposta);
   };
 
@@ -162,7 +172,7 @@ class App extends Component {
   };
 
   render() {
-    const { filiali, customers, tableClass, isConfirmedVisible } = this.state;
+    const { filiali, customers, tableClass, isConfirmedVisible, risposta } = this.state;
     return (
       <div className="App">
         <Switch>
@@ -200,6 +210,7 @@ class App extends Component {
                   tableClass={tableClass}
                   setVariazioneClienti={this.setVariazioneClienti}
                   setConfirmed={this.setConfirmed}
+                  handleEnded={this.handleEnded}
                 />
               </div>
             )}

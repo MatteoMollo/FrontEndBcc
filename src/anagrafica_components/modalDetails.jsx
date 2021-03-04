@@ -38,7 +38,12 @@ class ModalDetails extends Component {
     const { small, big } = this.state;
 
     return (
-      <div className="modal fade" id="myModal" role="dialog">
+      <div
+        className="modal fade"
+        id="myModal"
+        role="dialog"
+        onEnded={this.props.handleEnded}
+      >
         <div className={customer.confermato ? small : big}>
           <div className="modal-content">
             {customer.confermato ? (
